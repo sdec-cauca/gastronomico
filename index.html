@@ -310,6 +310,9 @@
             padding: 1rem;
             margin-bottom: 1rem;
             border-radius: 10px;
+            box-shadow: 10px 10px 5px 0px rgba(146, 146, 146, 0.75);
+            -webkit-box-shadow: 10px 10px 5px 0px rgba(146, 146, 146, 0.75);
+            -moz-box-shadow: 10px 10px 5px 0px rgba(146, 146, 146, 0.75);
         }
         
         #modal-results-list .result-day {
@@ -324,6 +327,14 @@
             color: #475569;
             margin-bottom: 0.25rem;
         }
+        
+        hr {
+        width: 70%;           /* Define el ancho (50% del contenedor o en px) */
+        margin: 12px auto 6px auto;    /* Centrar la línea horizontal */
+        border: none;         /* Quitar borde por defecto */
+        border-top: 1px solid #0b0035; /* Grosor y color */
+}
+
 
 
         /* --- Responsividad --- */
@@ -383,7 +394,7 @@
                                     <tr><td>Pabellón</td><td>Logística - montaje de impresos - adecuación punto Cauca</td><td>Minería</td><td>Jose Fernando Saldaña</td></tr>
                                     <tr><td>Pabellón</td><td>Logística - montaje de impresos - adecuación punto Cauca</td><td>Fortalecimiento</td><td>Carlos Betancourt</td></tr>
                                     <tr><td>Pabellón</td><td>Logística - montaje de impresos - adecuación punto Cauca</td><td>Comercialización</td><td>Juan Diego Aza</td></tr>
-                                    <tr><td>Pabellón</td><td>Logística - montaje de impresos - adecuación punto Cauca</td><td>Comercialización</td><td>Javier Mera</td></tr>
+                                    <tr><td>Pabellón</td><td>Logística - montaje de impresos - adecuación punto Cauca</td><td>Comercialización</td><td>Javier Mariano Mera Rivera</td></tr>
                                     <tr><td>Pabellón</td><td>Logística - transporte de pendones, letras, marimba y tambor</td><td>Fortalecimiento</td><td>Luis Acosta</td></tr>
                                     <tr><td>Pabellón</td><td>Logística - transporte de pendones, letras, marimba y tambor</td><td>CTeI</td><td>Jarvi Molano</td></tr>
                                     <tr><td>Pabellón</td><td>Logística - transporte de pendones, letras, marimba y tambor</td><td>CTeI</td><td>David Mejia</td></tr>
@@ -756,7 +767,7 @@
                                     <tr><td>Pabellón</td><td>Logística - montaje de impresos - adecuación punto Cauca</td><td>Minería</td><td>Jose Fernando Saldaña</td></tr>
                                     <tr><td>Pabellón</td><td>Logística - montaje de impresos - adecuación punto Cauca</td><td>Fortalecimiento</td><td>Carlos Betancourt</td></tr>
                                     <tr><td>Pabellón</td><td>Logística - montaje de impresos - adecuación punto Cauca</td><td>Comercialización</td><td>Juan Diego Aza</td></tr>
-                                    <tr><td>Pabellón</td><td>Logística - montaje de impresos - adecuación punto Cauca</td><td>Comercialización</td><td>Javier Mera</td></tr>
+                                    <tr><td>Pabellón</td><td>Logística - montaje de impresos - adecuación punto Cauca</td><td>Comercialización</td><td>Javier Mariano Mera Rivera</td></tr>
                                     <tr><td>Pabellón</td><td>Logística - transporte de pendones, letras, marimba y tambor</td><td>Fortalecimiento</td><td>Luis Acosta</td></tr>
                                     <tr><td>Pabellón</td><td>Logística - transporte de pendones, letras, marimba y tambor</td><td>CTeI</td><td>Jarvi Molano</td></tr>
                                     <tr><td>Pabellón</td><td>Logística - transporte de pendones, letras, marimba y tambor</td><td>CTeI</td><td>David Mejia</td></tr>
@@ -828,31 +839,40 @@
             displayResults(results, searchInput.value.trim());
         };
 
-        const displayResults = (results, query) => {
-            modalResultsList.innerHTML = ''; // Limpiar resultados
-            const resultHeader = modalResultsList.previousElementSibling;
+const displayResults = (results, query) => {
+    modalResultsList.innerHTML = ''; // Limpiar resultados
+    const resultHeader = modalResultsList.previousElementSibling;
 
-            if (results.length > 0) {
-                const uniqueNames = [...new Set(results.map(res => res.name))];
-                const personName = uniqueNames.join(', ');
-                resultHeader.innerHTML = `Programación para: <strong>${personName}</strong>`;
-                
-                results.forEach(res => {
-                    const li = document.createElement('li');
-                    li.innerHTML = `
-                        <div class="result-day">${res.day}</div>
-                        <div class="result-turn">${res.turn}</div>
-                        <div><strong>Lugar:</strong> ${res.lugar}</div>
-                        <div><strong>Rol:</strong> ${res.rol}</div>
-                    `;
-                    modalResultsList.appendChild(li);
-                });
-            } else {
-                 resultHeader.textContent = 'Resultados de la Búsqueda';
-                 modalResultsList.innerHTML = `<p style="text-align:center;">No se encontraron resultados para "<strong>${query}</strong>".</p>`;
-            }
-            modal.style.display = 'block';
-        };
+    if (results.length > 0) {
+        const uniqueNames = [...new Set(results.map(res => res.name))];
+
+        // Generar lista en <ul> con cada persona en <li>
+        const nameList = `
+            <hr><ul style="list-style:none; padding-left:0; margin:0;">
+                ${uniqueNames.map(name => `<li><strong>${name}</strong></li><hr>`).join('')}
+            </ul>
+        `;
+
+        resultHeader.innerHTML = `Programación de: ${nameList}`;
+        
+        results.forEach(res => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <div class="result-day">${res.day}</div>
+                <div class="result-turn">${res.turn}</div>
+                <div><strong>Lugar:</strong> ${res.lugar}</div>
+                <div><strong>Rol:</strong> ${res.rol}</div>
+            `;
+            modalResultsList.appendChild(li);
+        });
+    } else {
+        resultHeader.textContent = 'Resultados de la Búsqueda';
+        modalResultsList.innerHTML = `<p style="text-align:center;">No se encontraron resultados para "<strong>${query}</strong>".</p>`;
+    }
+    modal.style.display = 'block';
+};
+
+
 
         searchInput.addEventListener('keyup', (event) => {
             if (event.key === 'Enter') performSearch();
