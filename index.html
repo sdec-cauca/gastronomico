@@ -183,7 +183,7 @@
         }
         
         .download-btn {
-            background-color: #a4fa9c;
+            background-color: #b4fbfd;
             color: var(--color-secundario);
             border: none;
             padding: 0.6rem 1.2rem;
@@ -271,8 +271,8 @@
             border-radius: var(--radio-borde);
             box-shadow: 0 5px 20px rgba(0,0,0,0.2);
             width: 90%;
-            max-width: 600px;
-            max-height: 80vh;
+            max-width: 780px;
+            max-height: 84vh;
             overflow-y: auto;
             animation: slideIn 0.4s ease-out forwards;
         }
@@ -329,13 +329,78 @@
         }
         
         hr {
-        width: 70%;           /* Define el ancho (50% del contenedor o en px) */
-        margin: 12px auto 6px auto;    /* Centrar la línea horizontal */
-        border: none;         /* Quitar borde por defecto */
-        border-top: 1px solid #0b0035; /* Grosor y color */
-}
+            width: 70%;      
+            margin: 12px auto 6px auto; 
+            border: none;      
+            border-top: 1px solid #0b0035;
+        }
 
+        /* --- NUEVO: Botón de Ayuda Flotante --- */
+        #help-btn {
+            position: fixed;
+            top: 50%;
+            right: 25px;
+            transform: translateY(-50%);
+            z-index: 999;
+            background-color: var(--color-primario);
+            color: var(--color-texto-claro);
+            border: none;
+            border-radius: 50px;
+            padding: 1rem 1.5rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
 
+        #help-btn:hover {
+            transform: translateY(-50%) scale(1.1);
+            animation-play-state: paused; /* Pausar animación al pasar el mouse */
+        }
+        
+        /* NUEVO: Animación palpitante para el botón */
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 20px rgba(59, 130, 246, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+            }
+        }
+        
+        /* NUEVO: Estilos para la tabla del popup de roles */
+        #roles-modal-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+
+        #roles-modal-table th, #roles-modal-table td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        #roles-modal-table th {
+            background-color: #f1f5f9;
+            color: var(--color-secundario);
+            font-weight: 700;
+        }
+
+        #roles-modal-table tr:hover {
+            background-color: #f8fafc;
+        }
+
+        #roles-modal-table td:first-child {
+            font-weight: 600;
+            color: var(--color-primario);
+        }
 
         /* --- Responsividad --- */
         @media (max-width: 768px) {
@@ -350,11 +415,15 @@
             .schedule-card h2 { font-size: 1.5rem; }
             .schedule-table-container { overflow-x: auto; }
             .modal-content { width: 95%; padding: 2rem 1.5rem;}
+            #help-btn { padding: 0.8rem 1rem; font-size: 0.9rem; right: 15px;}
         }
 
     </style>
 </head>
 <body>
+
+    <!-- NUEVO: Botón de Ayuda Flotante -->
+    <button id="help-btn">¿Qué debo hacer? 🤔</button>
 
     <div class="container">
         <header class="header">
@@ -794,18 +863,88 @@
             </div>
         </div>
     </div>
+    
+    <!-- NUEVO: Modal de Descripción de Roles -->
+    <div id="roles-modal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+                        <!-- ****** CAMBIO REALIZADO AQUÍ ****** -->
+            <div class="card-header" style="justify-content: center; margin-bottom: 1rem; gap: 1rem;">
+                <!-- <button id="download-roles-btn" class="download-btn">⏬ Descargar roles</button> -->
+            </div>
+            <h3 style="display: block; text-align: center; margin-bottom: 1rem;">Descripción de Roles</h3>
+            <p style="text-align: center; margin-bottom: 1rem;">Consulta aquí las responsabilidades asociadas a cada rol para garantizar el éxito del evento.</p>
+             <div class="schedule-table-container">
+                <table id="roles-modal-table">
+                    <thead>
+                        <tr>
+                            <th>Rol</th>
+                            <th>Descripción de Tareas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Logística (Montaje y Desmontaje)</td>
+                            <td>Encargado de armar y desarmar la infraestructura del pabellón. Incluye instalar impresos, adecuar puntos de información y transportar elementos como pendones, letras y equipos.</td>
+                        </tr>
+                        <tr>
+                            <td>Apoyo entrega vigilante</td>
+                            <td>Realizar el relevo con el personal de seguridad cuyo turno es de 9:00 pm - 9:00 am, asegurando que todos los activos del pabellón estén contados, en buen estado y seguros al finalizar la jornada.</td>
+                        </tr>
+                        <tr>
+                            <td>Atención a usuarios</td>
+                            <td>Brindar información clara y amable a los visitantes acerca del <strong>Pabellón y la ciudad de Popayán</strong>, resolver sus dudas sobre las actividades Parapente (comunicarse con operador), Carro Eléctrico (comunicarse con Daniel Calderón) y asegurar una experiencia positiva.</td>
+                        </tr>
+                         <tr>
+                            <td>Atención a usuarios e impulsador</td>
+                            <td>Combinar la atención al público con la promoción activa de las atracciones. Invitar a los visitantes a participar, explicar los beneficios y generar entusiasmo.</td>
+                        </tr>
+                        <tr>
+                            <td>Organización de usuarios</td>
+                            <td>Gestionar el flujo de personas en las atracciones, organizar las filas, indicar los tiempos de espera y mantener el orden para garantizar la seguridad y agilidad.</td>
+                        </tr>
+                        <tr>
+                            <td>Auxiliar de escenografía</td>
+                            <td>Apoyar en la correcta disposición de los elementos visuales y decorativos del evento, asegurando que la ambientación sea la adecuada durante toda la jornada.</td>
+                        </tr>
+                        <tr>
+                            <td>Punto Cauca</td>
+                            <td>Ser la cara visible del stand principal. Atender a los visitantes, gestionar el uso de elementos para fotos representando la marca Cauca.</td>
+                        </tr>
+                        <tr>
+                            <td>Impulsador</td>
+                            <td>Atraer activamente al público hacia el pabellón y sus actividades. Ubicado en puntos estratégicos (entradas, zonas generales), su objetivo es generar interés y dirigir visitantes promocionando <strong>nuestro Pabellón</strong>.</td>
+                        </tr>
+                        <tr>
+                            <td>Punto Turístico</td>
+                            <td>Ofrecer información especializada sobre turismo en el Cauca desde el stand principal de la SDEC, resolviendo dudas de los visitantes y promoviendo los destinos de la región e inclusive promocionando el trabajo de cada proyecto.</td>
+                        </tr>
+                        <tr>
+                            <td>Vigilancia y Varios</td>
+                            <td>Realizar el relevo con el personal de seguridad cuyo turno es de 9:00 pm - 9:00 am, asegurando que todos los activos del pabellón estén contados, en buen estado y seguros al finalizar la jornada. Además, llevar a cabo rondas de supervisión general, estar atento a cualquier necesidad imprevista, apoyar a otros roles si es necesario y velar por el buen funcionamiento y seguridad del área.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
 
-    <script>
+<script>
     document.addEventListener('DOMContentLoaded', function() {
         // --- SELECCIÓN DE ELEMENTOS ---
         const buttons = document.querySelectorAll('.day-btn');
         const schedules = document.querySelectorAll('.schedule-content');
         const searchInput = document.getElementById('search-input');
-        const modal = document.getElementById('search-modal');
-        const modalClose = document.querySelector('.modal-close');
+        const searchModal = document.getElementById('search-modal');
+        const searchModalClose = searchModal.querySelector('.modal-close');
         const modalResultsList = document.getElementById('modal-results-list');
         
+        // SELECCIÓN DE ELEMENTOS PARA MODAL DE ROLES
+        const helpBtn = document.getElementById('help-btn');
+        const rolesModal = document.getElementById('roles-modal');
+        const rolesModalClose = rolesModal.querySelector('.modal-close');
+
         // --- NAVEGACIÓN POR DÍAS ---
         buttons.forEach(button => {
             button.addEventListener('click', () => {
@@ -821,7 +960,7 @@
         const performSearch = () => {
             const query = searchInput.value.trim().toLowerCase();
             if (query.length < 2) {
-                if (modal.style.display === 'block') modal.style.display = 'none';
+                if (searchModal.style.display === 'block') searchModal.style.display = 'none';
                 return;
             }
 
@@ -833,8 +972,8 @@
                     if (encargadoName.includes(query)) {
                         const dayTitle = row.closest('.schedule-card').querySelector('h2').textContent;
                         const turnTitle = row.closest('.turn-section').querySelector('h3').textContent;
-                        const rol = row.querySelector('td:nth-child(2)').textContent; // Ajustado para la segunda columna (ROL)
-                        const lugar = row.querySelector('td:first-child').textContent; // Tomamos el lugar de la primera columna
+                        const rol = row.querySelector('td:nth-child(2)').textContent;
+                        const lugar = row.querySelector('td:first-child').textContent;
                         results.push({ day: dayTitle, turn: turnTitle, rol: rol, lugar: lugar, name: encargadoCell.textContent.trim() });
                     }
                 }
@@ -842,65 +981,123 @@
             displayResults(results, searchInput.value.trim());
         };
 
-const displayResults = (results, query) => {
-    modalResultsList.innerHTML = ''; // Limpiar resultados
-    const resultHeader = modalResultsList.previousElementSibling;
+        const displayResults = (results, query) => {
+            modalResultsList.innerHTML = '';
+            const resultHeader = modalResultsList.previousElementSibling;
 
-    if (results.length > 0) {
-        const uniqueNames = [...new Set(results.map(res => res.name))];
-
-        // Generar lista en <ul> con cada persona en <li>
-        const nameList = `
-            <hr><ul style="list-style:none; padding-left:0; margin:0;">
-                ${uniqueNames.map(name => `<li><strong>${name}</strong></li><hr>`).join('')}
-            </ul>
-        `;
-
-        resultHeader.innerHTML = `Programación de: ${nameList}`;
-        
-        results.forEach(res => {
-            const li = document.createElement('li');
-            li.innerHTML = `
-                <div class="result-day">${res.day}</div>
-                <div class="result-turn">${res.turn}</div>
-                <div><strong>Lugar:</strong> ${res.lugar}</div>
-                <div><strong>Rol:</strong> ${res.rol}</div>
-            `;
-            modalResultsList.appendChild(li);
-        });
-    } else {
-        resultHeader.textContent = 'Resultados de la Búsqueda';
-        modalResultsList.innerHTML = `<p style="text-align:center;">No se encontraron resultados para "<strong>${query}</strong>".</p>`;
-    }
-    modal.style.display = 'block';
-};
-
-
+            if (results.length > 0) {
+                const uniqueNames = [...new Set(results.map(res => res.name))];
+                const nameList = `
+                    <hr><ul style="list-style:none; padding-left:0; margin:0;">
+                        ${uniqueNames.map(name => `<li><strong>${name}</strong></li><hr>`).join('')}
+                    </ul>
+                `;
+                resultHeader.innerHTML = `Programación de: ${nameList}`;
+                
+                results.forEach(res => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <div class="result-day">${res.day}</div>
+                        <div class="result-turn">${res.turn}</div>
+                        <div><strong>Lugar:</strong> ${res.lugar}</div>
+                        <div><strong>Rol:</strong> ${res.rol}</div>
+                    `;
+                    modalResultsList.appendChild(li);
+                });
+            } else {
+                resultHeader.textContent = 'Resultados de la Búsqueda';
+                modalResultsList.innerHTML = `<p style="text-align:center;">No se encontraron resultados para "<strong>${query}</strong>".</p>`;
+            }
+            searchModal.style.display = 'block';
+        };
 
         searchInput.addEventListener('keyup', (event) => {
             if (event.key === 'Enter') performSearch();
         });
         
-        // Cierra el modal
-        const closeModal = () => { modal.style.display = 'none'; };
-        modalClose.addEventListener('click', closeModal);
-        modal.addEventListener('click', (event) => { if (event.target === modal) closeModal(); });
+        // Cierra el modal de búsqueda
+        const closeSearchModal = () => { searchModal.style.display = 'none'; };
+        searchModalClose.addEventListener('click', closeSearchModal);
+        searchModal.addEventListener('click', (event) => { if (event.target === searchModal) closeSearchModal(); });
+        
+        // FUNCIONALIDAD PARA MODAL DE ROLES
+        const openRolesModal = () => { rolesModal.style.display = 'block'; };
+        const closeRolesModal = () => { rolesModal.style.display = 'none'; };
 
-        // --- DESCARGAR COMO IMAGEN ---
-        document.querySelectorAll('.download-btn').forEach(button => {
+        helpBtn.addEventListener('click', openRolesModal);
+        rolesModalClose.addEventListener('click', closeRolesModal);
+        rolesModal.addEventListener('click', (event) => { if (event.target === rolesModal) closeRolesModal(); });
+
+
+        /**
+         * ===================================================================
+         * FUNCIÓN DEFINITIVA Y CORREGIDA PARA DESCARGAR LA TABLA DE ROLES
+         * ===================================================================
+         * Clona el contenido del modal para asegurar una captura completa y de alta calidad,
+         * evitando problemas de scroll, posicionamiento o de captura en blanco.
+         */
+        // function setupRolesDownload() {
+        //     const downloadButton = document.getElementById('download-roles-btn');
+        //     if (!downloadButton) return; 
+
+        //     downloadButton.addEventListener('click', () => {
+        //         const originalContent = document.querySelector('#roles-modal .modal-content');
+
+        //         // 1. Crear un clon del contenido para prepararlo para la captura.
+        //         const contentClone = originalContent.cloneNode(true);
+                
+        //         // Eliminar los botones del clon para que no aparezcan en la imagen.
+        //         contentClone.querySelector('.modal-close').remove();
+        //         contentClone.querySelector('#download-roles-btn').remove();
+
+        //         // 2. Crear un contenedor invisible fuera de la pantalla para el clon.
+        //         const cloneContainer = document.createElement('div');
+        //         cloneContainer.style.position = 'absolute';
+        //         cloneContainer.style.top = '-9999px';
+        //         cloneContainer.style.left = '0px';
+                
+        //         // 3. Aplicar estilos de "PC" al clon para que se renderice completo.
+        //         contentClone.style.width = '650px';
+        //         contentClone.style.maxWidth = '650px';
+        //         contentClone.style.maxHeight = 'none';
+        //         contentClone.style.overflowY = 'visible';
+        //         contentClone.style.transform = 'none';
+        //         contentClone.style.position = 'static';
+
+        //         // Añadir el clon al body para que se renderice.
+        //         cloneContainer.appendChild(contentClone);
+        //         document.body.appendChild(cloneContainer);
+
+        //         // 4. Tomar la foto del clon preparado.
+        //         html2canvas(contentClone, {
+        //             scale: 2.5, // Alta resolución para una imagen nítida.
+        //             backgroundColor: '#ffffff',
+        //             useCORS: true,
+        //             logging: false
+        //         }).then(canvas => {
+        //             const link = document.createElement('a');
+        //             link.download = 'Tabla-Descripcion-de-Roles.png';
+        //             link.href = canvas.toDataURL('image/png');
+        //             link.click();
+        //         }).catch(err => {
+        //             console.error("Error al generar la imagen de roles:", err);
+        //         }).finally(() => {
+        //             // 5. CRÍTICO: Limpiar y eliminar el clon después de la operación.
+        //             document.body.removeChild(cloneContainer);
+        //         });
+        //     });
+        // }
+
+
+        // --- DESCARGAR COMO IMAGEN (Programación diaria) ---
+        document.querySelectorAll('.schedule-card .download-btn').forEach(button => {
             button.addEventListener('click', (e) => {
                 const cardToCapture = e.target.closest('.schedule-card');
                 const dayTitle = cardToCapture.querySelector('h2').textContent.split('/')[0].trim().replace(/\s+/g, '-');
-                const tableContainers = cardToCapture.querySelectorAll('.schedule-table-container');
-
-                // Guardar estilos originales
-                const originalCardWidth = cardToCapture.style.width;
-                const originalContainerOverflows = [];
-                tableContainers.forEach(c => originalContainerOverflows.push(c.style.overflowX));
-
-                // Aplicar estilos temporales para la captura
-                cardToCapture.style.width = '1200px'; // Ancho de escritorio
-                tableContainers.forEach(c => c.style.overflowX = 'visible');
+                
+                // Aplicar estilos temporales para la captura en modo PC
+                const originalStyles = { width: cardToCapture.style.width };
+                cardToCapture.style.width = '1200px';
 
                 html2canvas(cardToCapture, {
                     scale: 2,
@@ -908,24 +1105,22 @@ const displayResults = (results, query) => {
                     logging: false,
                     backgroundColor: '#ffffff'
                 }).then(canvas => {
-                    // Descargar la imagen
                     const link = document.createElement('a');
                     link.download = `Programacion-${dayTitle}.png`;
                     link.href = canvas.toDataURL('image/png');
                     link.click();
-
-                    // Revertir estilos a los originales
-                    cardToCapture.style.width = originalCardWidth;
-                    tableContainers.forEach((c, index) => c.style.overflowX = originalContainerOverflows[index]);
                 }).catch(err => {
                     console.error("Error al generar la imagen:", err);
-                    // Revertir estilos en caso de error
-                    cardToCapture.style.width = originalCardWidth;
-                    tableContainers.forEach((c, index) => c.style.overflowX = originalContainerOverflows[index]);
+                }).finally(() => {
+                    // Restaurar estilos originales
+                    cardToCapture.style.width = originalStyles.width;
                 });
             });
         });
+        
+        // --- INICIALIZAR LAS FUNCIONES AL CARGAR LA PÁGINA ---
+        setupRolesDownload();
     });
-    </script>
+</script>
 </body>
 </html>
